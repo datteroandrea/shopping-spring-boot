@@ -4,18 +4,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 
 @Entity
-@Table(name="products")
-public class Product {
+public class ProductOrder {
+    
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="product_id")
-    private Long id;
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="product_order_id")
+    private long id;
 
-    public String name;
+    @Min(value = 1)
+    public int quantity;
 
-    @Min(value = 0)
-    public float price;
+    public Product product;
+
 }

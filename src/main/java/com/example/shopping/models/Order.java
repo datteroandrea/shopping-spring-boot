@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,6 +16,12 @@ public class Order {
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="order_id")
     private Long id;
     
-    @ManyToMany(targetEntity=com.example.shopping.models.Order.class)
-    private Iterable<Product> products;
+    @Id
+    public Long accountId;
+    
+    @ManyToOne
+    public Account account;
+
+    @OneToMany(targetEntity=com.example.shopping.models.ProductOrder.class)
+    public Iterable<ProductOrder> products;
 }
