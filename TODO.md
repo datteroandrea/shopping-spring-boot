@@ -1,0 +1,4 @@
+- Database connection
+- Authentication
+- OAuth (Google)
+- WebSockets

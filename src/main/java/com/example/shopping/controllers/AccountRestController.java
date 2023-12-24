@@ -1,18 +1,18 @@
 package com.example.shopping.controllers;
 
 import java.util.Optional;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.shopping.models.Account;
+import com.example.shopping.models.Order;
 import com.example.shopping.services.AccountService;
-
 import jakarta.validation.Valid;
 
 @RestController("/accounts")
@@ -42,6 +42,12 @@ public class AccountRestController {
 	public ResponseEntity<Account> updateAccount(@Valid @RequestBody Account account, @PathVariable long id) {
 		Account updatedAccount = this.accountService.updateAccount(account, id);
 		return new ResponseEntity<Account>(updatedAccount,HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping
+    public ResponseEntity<Iterable<Order>> getOrders(@PathVariable long id) {
+        Optional<Account> account = this.accountService.getAccount(id);
+        return new ResponseEntity<Iterable<Order>>(account.get().orders,HttpStatus.ACCEPTED);
     }
 
 }

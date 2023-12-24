@@ -1,10 +1,7 @@
 package com.example.shopping.services;
 
-import java.util.List;
 import java.util.Optional;
-
 import org.springframework.stereotype.Service;
-
 import com.example.shopping.models.Account;
 import com.example.shopping.repositories.AccountRepository;
 
@@ -17,10 +14,11 @@ public class AccountService {
         return this.accountRepository.save(account);
     }
 
-    // TODO
     public Account updateAccount(Account account, long id) {
-        Optional<Account> oldAccount = this.accountRepository.findById(id);
-        return this.accountRepository.save(account);
+        Account oldAccount = this.accountRepository.findById(id).get();
+        oldAccount.email = account.email;
+        oldAccount.name = account.name;
+        return this.accountRepository.save(oldAccount);
     }
 
     public Optional<Account> getAccount(long id) {
