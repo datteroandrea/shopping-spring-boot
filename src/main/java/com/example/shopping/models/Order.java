@@ -6,21 +6,43 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name="orders")
 public class Order {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="order_id")
     private Long id;
     
-    @Id
-    public Long accountId;
-    
     @ManyToOne
-    public Account account;
+    private Account account;
 
-    @OneToMany(targetEntity=com.example.shopping.models.ProductOrder.class)
-    public Iterable<ProductOrder> products;
+    @OneToMany(mappedBy = "order") // Make sure 'order' matches the field in the ProductOrder that refers back to this Order
+    private List<ProductOrder> products = new ArrayList<>();
+
+    // standard getters and setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public List<ProductOrder> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<ProductOrder> orderedProducts) {
+        this.products = orderedProducts;
+    }
 }

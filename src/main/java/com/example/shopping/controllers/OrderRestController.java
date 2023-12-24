@@ -1,31 +1,30 @@
 package com.example.shopping.controllers;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.shopping.models.Order;
 import com.example.shopping.models.ProductOrder;
-import com.example.shopping.repositories.OrderRepository;
-import com.example.shopping.repositories.ProductOrderRepository;
+import com.example.shopping.services.OrderService;
+
 import jakarta.validation.Valid;
 
-// TODO: remove usage of repository and subsitute it with a call to the services
-@RestController("/orders")
+@RestController
+@RequestMapping("/orders")
 public class OrderRestController {
 
-    private ProductOrderRepository productOrderRepository;
-    private OrderRepository orderRepository;
+    private OrderService orderService;
     
     @PostMapping("/{accountId}/create")
-    public ResponseEntity<Order> createOrder(@Valid @RequestParam long accountId, @Valid @RequestBody Iterable<ProductOrder> products) {
-        Iterable<ProductOrder> orderedProducts = this.productOrderRepository.saveAll(products);
-        Order order = new Order();
-        order.accountId = accountId;
-        order.products = orderedProducts;
-        return new ResponseEntity<>(this.orderRepository.save(order), HttpStatus.CREATED);
+    public ResponseEntity<Order> createOrder(@Valid @RequestParam long accountId, @Valid @RequestBody List<ProductOrder> products) {
+        Order order = this.orderService.createOrder(accountId, products);
+        return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
 
 }

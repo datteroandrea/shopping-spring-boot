@@ -1,5 +1,6 @@
 package com.example.shopping.controllers;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,13 +10,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.shopping.models.Account;
 import com.example.shopping.models.Order;
 import com.example.shopping.services.AccountService;
 import jakarta.validation.Valid;
 
-@RestController("/accounts")
+@RestController
+@RequestMapping("/accounts")
 public class AccountRestController {
 
     private AccountService accountService;
@@ -45,9 +48,9 @@ public class AccountRestController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<Order>> getOrders(@PathVariable long id) {
+    public ResponseEntity<List<Order>> getOrders(@PathVariable long id) {
         Optional<Account> account = this.accountService.getAccount(id);
-        return new ResponseEntity<Iterable<Order>>(account.get().orders,HttpStatus.ACCEPTED);
+        return new ResponseEntity<List<Order>>(account.get().getOrders(),HttpStatus.ACCEPTED);
     }
 
 }
