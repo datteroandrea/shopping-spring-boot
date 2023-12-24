@@ -1,7 +1,6 @@
 package com.example.shopping.controllers;
 
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.shopping.models.Order;
 import com.example.shopping.models.ProductOrder;
 import com.example.shopping.services.OrderService;
-
 import jakarta.validation.Valid;
 
 @RestController
