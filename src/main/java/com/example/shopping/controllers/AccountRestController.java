@@ -2,6 +2,7 @@ package com.example.shopping.controllers;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.shopping.models.Account;
-import com.example.shopping.models.Order;
 import com.example.shopping.services.AccountService;
 import jakarta.validation.Valid;
 
@@ -21,6 +21,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/accounts")
 public class AccountRestController {
 
+    @Autowired
     private AccountService accountService;
 
     @PostMapping("/create")
@@ -29,7 +30,13 @@ public class AccountRestController {
         return new ResponseEntity<Account>(account, HttpStatus.CREATED);
     }
 
-    @PostMapping("/{id}")
+    @GetMapping("/all")
+    public ResponseEntity<List<Account>> getAccounts() {
+        List<Account> accounts = this.accountService.getAccounts();
+        return new ResponseEntity<List<Account>>(accounts, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
     public ResponseEntity<Optional<Account>> getAccount(@PathVariable long id) {
         Optional<Account> account = this.accountService.getAccount(id);
         return new ResponseEntity<Optional<Account>>(account, HttpStatus.CREATED);
@@ -45,12 +52,6 @@ public class AccountRestController {
 	public ResponseEntity<Account> updateAccount(@Valid @RequestBody Account account, @PathVariable long id) {
 		Account updatedAccount = this.accountService.updateAccount(account, id);
 		return new ResponseEntity<Account>(updatedAccount,HttpStatus.ACCEPTED);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Order>> getOrders(@PathVariable long id) {
-        Optional<Account> account = this.accountService.getAccount(id);
-        return new ResponseEntity<List<Order>>(account.get().getOrders(),HttpStatus.ACCEPTED);
     }
 
 }

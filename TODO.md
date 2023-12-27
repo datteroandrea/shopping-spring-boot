@@ -1,3 +1,4 @@
 - Authentication
 - OAuth (Google)
 - WebSockets
+- Messaging (Apache Kafka)

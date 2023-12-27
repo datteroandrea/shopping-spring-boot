@@ -1,6 +1,8 @@
 package com.example.shopping.services;
 
+import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.shopping.models.Account;
 import com.example.shopping.repositories.AccountRepository;
@@ -8,6 +10,7 @@ import com.example.shopping.repositories.AccountRepository;
 @Service
 public class AccountService {
 
+    @Autowired
     private AccountRepository accountRepository;
 
     public Account createAccount(Account account) {
@@ -16,8 +19,8 @@ public class AccountService {
 
     public Account updateAccount(Account account, long id) {
         Account oldAccount = this.accountRepository.findById(id).get();
-        oldAccount.email = account.email;
-        oldAccount.name = account.name;
+        oldAccount.setEmail(account.getEmail());
+        oldAccount.setName(account.getName());
         return this.accountRepository.save(oldAccount);
     }
 
@@ -27,6 +30,10 @@ public class AccountService {
 
     public void deleteAccount(long id) {
         this.accountRepository.deleteById(id);
+    }
+
+    public List<Account> getAccounts() {
+        return this.accountRepository.findAll();
     }
 
 }

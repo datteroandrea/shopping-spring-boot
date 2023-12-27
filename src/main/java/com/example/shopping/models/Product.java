@@ -1,44 +1,48 @@
 package com.example.shopping.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.Min;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "products")
 public class Product {
+
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="product_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Min(value = 0) // This ensures the price is never set below 0
-    private float price;
+    @Column(name = "price", nullable = false)
+    private Float price;
 
-    // standard getters and setters
-    public Long getId() {
-        return id;
+    public Product() {
+        
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Product(String name, Float price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
+    public Float getPrice() {
+        return price;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
+
 }
