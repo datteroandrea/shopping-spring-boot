@@ -1,0 +1,34 @@
+## default connection pool
+spring.datasource.hikari.connectionTimeout=20000
+spring.datasource.hikari.maximumPoolSize=5
+
+## PostgreSQL
+spring.datasource.url=jdbc:postgresql://localhost:5432/shopping
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+
+# create and drop table, good for testing, production set to none or comment it
+spring.jpa.hibernate.ddl-auto=create-drop
+spring.jpa.generate-ddl=true
+spring.jpa.hibernate.ddl-auto = create
+app.db.init.enabled=true
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+
+# Enable Swagger UI
+springfox.documentation.swagger-ui.enabled=true
+
+# This is to separate UI from API
+spring.data.rest.base-path=/api
+
+# GitHub Login
+spring.security.oauth2.client.registration.github.client-id=GITHUB_CLIENT_ID
+spring.security.oauth2.client.registration.github.client-secret=GITHUB_CLIENT_SECRET
+spring.security.oauth2.client.registration.github.scope=email, public_profile
+
+# Google Login
+#spring.security.oauth2.client.registration.google.client-id=GOOGLE_CLIENT_ID
+#spring.security.oauth2.client.registration.google.client-secret=GOOGLE_CLIENT_SECRET
+
+frontend.url=http://localhost:3000
+
+logging.level.org.springframework.security=TRACE

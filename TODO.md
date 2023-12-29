@@ -1,4 +1,5 @@
 - Authentication
 - OAuth (Google)
+- Use React frontend
 - WebSockets
 - Messaging (Apache Kafka)

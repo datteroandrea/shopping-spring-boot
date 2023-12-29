@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import java.util.List;
-import com.example.shopping.models.Account;
 import com.example.shopping.models.Product;
 import com.example.shopping.repositories.AccountRepository;
 import com.example.shopping.repositories.ProductRepository;
@@ -35,10 +34,6 @@ public class ShoppingApplication {
             Product product = new Product("Ear Buds", 99.99f);
 
             Product product1 = new Product("ThinkPad", 999.99f);
-
-            Account account = new Account("Andrea D'Attero", "testshoppingmail@gmail.com");
-
-            accountRepository.save(account);
 
             productRepository.saveAll(List.of(product, product1));
         };

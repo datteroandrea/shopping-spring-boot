@@ -3,6 +3,7 @@ package com.example.shopping.services;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import com.example.shopping.models.Account;
 import com.example.shopping.repositories.AccountRepository;
@@ -34,6 +35,12 @@ public class AccountService {
 
     public List<Account> getAccounts() {
         return this.accountRepository.findAll();
+    }
+
+    public Optional<Account> findByEmail(String email) {
+        var account = new Account();
+        account.setEmail(email);
+        return this.accountRepository.findOne(Example.of(account));
     }
 
 }
